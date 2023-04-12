@@ -42,3 +42,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+web
+test
+linux
+ios
+macos
+windows
+flutter_jank*
+android
+.dart_tool
+.idea
