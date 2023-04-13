@@ -16,17 +16,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
           fontFamily: 'QuickSand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline1: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
-                    headline1: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                )),
+                  headline2: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           )),
       home: MyHomePage(),
     );
@@ -62,15 +72,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txtTitle, double txAmount) {
+  void _addNewTransaction(
+      String txtTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       amount: txAmount,
-      date: DateTime.now(),
+      date: chosenDate,
       title: txtTitle,
     );
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -99,12 +116,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Chart(_recentTransactions),
-          TransactionList(_userTransactions),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Chart(_recentTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _startAddNewTransaction(context),
