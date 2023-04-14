@@ -7,7 +7,7 @@ class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions) {
-    print('Constructor chart');
+    // print('Constructor chart');
   }
 
   List<Map<String, Object>> get groupedTransactionValues {
@@ -38,7 +38,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build () for chart');
+    // print('build () for chart');
     return Card(
       elevation: 6,
       margin: const EdgeInsets.all(20),

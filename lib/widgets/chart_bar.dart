@@ -10,7 +10,7 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build for chart bar');
+    // print('build for chart bar');
     return LayoutBuilder(
       builder: (ctx, constraints) {
         return Column(
